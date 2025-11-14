@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>BirdBot - ChatBot UI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        #chatbox {
+            background-color: #ffffff;
+            padding: 15px;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        #chatbox p {
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 10px;
+            max-width: 80%;
+            display: inline-block;
+            word-wrap: break-word;
+        }
+
+        .bot {
+            background-color: #e6f3ff;
+            color: #004d99;
+            float: left;
+            text-align: left;
+        }
+
+        .user {
+            background-color: #d4edda;
+            color: #155724;
+            float: right;
+            text-align: right;
+        }
+
+        #chatbox::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        #input-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 12px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover { background-color: #0056b3; }
+
+        .user-image {
+            max-width: 150px;
+            height: auto;
+            border: 2px solid #28a745;
+            margin-top: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>🐦 BirdBot : Assistant Spécialisé</h1>
+    <div id="chatbox"></div>
+
+    <form id="input-form" onsubmit="event.preventDefault(); handleImageUpload();">
+        <p class="bot"><strong>BirdBot</strong> : Bonjour ! Je suis BirdBot. Je sers à classifier les images d'oiseaux via le <strong>Modèle Spécialiste ResNet-50</strong> (Protocole MCP).</p>
+        <input type="file" id="image-file" accept="image/*" required>
+        <button type="submit">Identifier l'oiseau</button>
+    </form>
+
+    <script>
+        const chatbox = document.getElementById('chatbox');
+        const fileInput = document.getElementById('image-file');
+        const MCP_URL = "http://127.0.0.1:8001/predict";
+
+        function appendMessage(sender, message, imageUrl=null) {
+            const p = document.createElement('p');
+            p.className = sender;
+
+            // Affichage du nom en gras
+            const prefix = document.createElement('strong');
+            prefix.textContent = sender === 'bot' ? 'BirdBot' : 'Vous';
+            p.appendChild(prefix);
+            p.appendChild(document.createTextNode(' : ' + message));
+
+            if(imageUrl){
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.className = 'user-image';
+                p.appendChild(document.createElement('br'));
+                p.appendChild(img);
+            }
+
+            chatbox.appendChild(p);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        async function handleImageUpload() {
+            if(fileInput.files.length === 0){
+                appendMessage('bot', "Veuillez sélectionner un fichier image.");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e){
+                appendMessage('user', `Image soumise : ${file.name}`, e.target.result);
+                proceedWithMCPCall(file);
+            }
+            reader.readAsDataURL(file);
+        }
+
+        async function proceedWithMCPCall(file){
+            appendMessage('bot', "Requête d'identification envoyée...");
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch(MCP_URL, { method: 'POST', body: formData });
+                if(!response.ok){
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || `Erreur HTTP ${response.status}`);
+                }
+                const data = await response.json();
+                appendMessage('bot', data.message);
+            } catch(err){
+                appendMessage('bot', "Erreur : " + err.message);
+            }
+
+            fileInput.value = '';
+        }
+    </script>
+</body>
+</html>

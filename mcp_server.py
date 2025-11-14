@@ -61,11 +61,11 @@ def predict_bird(image_file, model, classes):
     
     # Logique de la règle des 50%
     if max_prob < 0.50:
-        message = f"Je suis désolé, je n'ai identifié aucun oiseau avec une confiance suffisante (seulement {max_prob:.2%}). L'image que vous avez soumise n'est **probablement pas un oiseau** ou est de trop mauvaise qualité."
+        message = f"Je suis désolé, je n'ai identifié aucun oiseau avec une confiance suffisante (seulement {max_prob:.2%}). L'image que vous avez soumise n'est probablement pas un oiseau ou est de trop mauvaise qualité."
         return message, None
     else:
         predicted_class = classes[predicted_index.item()]
-        message = f"J'ai identifié l'oiseau comme étant : **{predicted_class}** avec une confiance de **{max_prob:.2%}**."
+        message = f"J'ai identifié l'oiseau comme étant : {predicted_class} avec une confiance de {max_prob:.2%}."
         return message, predicted_class
 
 # --- INITIALISATION DE L'APPLICATION ET DU MODÈLE ---
