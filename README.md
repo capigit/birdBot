@@ -1,6 +1,3 @@
-
------
-
 # 🐦 BirdBot : Assistant de Classification d'Oiseaux
 
 Ce projet met en œuvre un ChatBot léger (**BirdBot** - `chatbot_ui.py`) servant d'interface utilisateur à un modèle de *machine learning* spécialisé (ResNet-50) via un **Model Context Protocol (MCP)** implémenté avec FastAPI.
@@ -83,7 +80,3 @@ Vous devriez voir le message : `INFO: Uvicorn running on http://127.0.0.1:8000`
 
   * **Si la confiance est $\geq 50\%$ :** Le BirdBot renvoie l'espèce identifiée et le pourcentage de confiance.
   * **Si la confiance est $< 50\%$ :** Le BirdBot renvoie le message de sécurité indiquant que l'image n'est probablement pas un oiseau.
-
------
-
-Veuillez mettre à jour votre fichier `chatbot_ui.py` et, si vous le souhaitez, votre `mcp_server.py` pour refléter le nom **BirdBot** dans les messages de log du terminal. Après cela, nous pourrons passer à d'autres améliorations ou à la documentation.
