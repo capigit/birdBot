@@ -71,7 +71,7 @@ Vous devriez voir le message : `INFO: Uvicorn running on http://127.0.0.1:8000`
 ## 💻 3. Mode d'Emploi
 
 1.  **Accédez** au ChatBot UI dans votre navigateur :
-    (http://127.0.0.1:8000)(http://127.0.0.1:8000)
+    (http://127.0.0.1:8000)
 2.  Lisez le message de bienvenue de **BirdBot**.
 3.  **Soumettez** une image d'oiseau via l'interface d'upload. L'image apparaîtra dans la conversation.
 4.  Cliquez sur **"Identifier l'oiseau (Appel MCP)"**.
