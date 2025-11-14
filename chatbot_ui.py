@@ -12,7 +12,7 @@ HTML_CONTENT = f"""
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ChatBot Prédiction de classe d'oiseaux</title>
+    <title>BirdBot - ChatBot UI</title>
     <style>
         body {{ font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; background-color: #f4f4f4; }}
         h1 {{ color: #007bff; text-align: center; }}
@@ -27,11 +27,11 @@ HTML_CONTENT = f"""
     </style>
 </head>
 <body>
-    <h1>BirdBot : Assistant Spécialisé</h1>
+    <h1>🐦 BirdBot : Assistant Spécialisé</h1>
     <div id="chatbox"></div>
     
     <form id="input-form" onsubmit="event.preventDefault(); handleImageUpload();">
-        <p class="bot">BirdBot : Bonjour ! Je suis BirdBot. Je suis un ChatBot basé sur un petit LLM (conceptuel) et je sers d'interface à mon Modèle Spécialiste ResNet-50 (disponible via {MCP_URL}). Mon unique fonction est la classification d'images. Pour utiliser le modèle spécialiste via le Protocole MCP, veuillez soumettre une image d'oiseau ci-dessous.</p>
+        <p class="bot">**BirdBot** : Bonjour ! Je suis BirdBot. Je suis un ChatBot basé sur un petit LLM (conceptuel) et je sers d'interface à mon **Modèle Spécialiste ResNet-50** (disponible via {MCP_URL}). Mon unique fonction est la classification d'images. Pour utiliser le modèle spécialiste via le **Protocole MCP**, veuillez soumettre une image d'oiseau ci-dessous.</p>
         <input type="file" id="image-file" accept="image/*" required>
         <button type="submit">Identifier l'oiseau (Appel MCP)</button>
     </form>
@@ -50,7 +50,7 @@ HTML_CONTENT = f"""
             
             // Ajoute le préfixe du locuteur
             const prefix = document.createElement('span');
-            prefix.innerHTML = `${{sender === 'bot' ? 'BirdBot' : 'Vous'}} : `;
+            prefix.innerHTML = `**${{sender === 'bot' ? 'BirdBot' : 'Vous'}}** : `;
             contentDiv.appendChild(prefix);
 
             // Ajoute le message textuel
@@ -94,7 +94,7 @@ HTML_CONTENT = f"""
         }}
         
         async function proceedWithMCPCall(file) {{
-            appendMessage('bot', "Requête d'identification reçue. Déclenchement du Modèle Spécialiste (ResNet-50) via le Protocole MCP...");
+            appendMessage('bot', "Requête d'identification reçue. Déclenchement du Modèle Spécialiste (ResNet-50) via le **Protocole MCP**...");
             
             const formData = new FormData();
             formData.append('file', file); 

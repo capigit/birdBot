@@ -3,7 +3,7 @@
 
 # 🐦 BirdBot : Assistant de Classification d'Oiseaux
 
-Ce projet met en œuvre un ChatBot léger (`chatbot_ui.py`) servant d'interface utilisateur à un modèle de *machine learning* spécialisé (ResNet-50) via un **Model Context Protocol (MCP)** implémenté avec FastAPI.
+Ce projet met en œuvre un ChatBot léger (**BirdBot** - `chatbot_ui.py`) servant d'interface utilisateur à un modèle de *machine learning* spécialisé (ResNet-50) via un **Model Context Protocol (MCP)** implémenté avec FastAPI.
 
 Le modèle spécialiste est entraîné sur le jeu de données **Caltech-UCSD Birds 200 (CUB-200)** et est capable de classer 200 espèces d'oiseaux.
 
@@ -50,7 +50,8 @@ pip install torch torchvision numpy Pillow fastapi uvicorn python-multipart
 Le serveur MCP (`mcp_server.py`) charge le modèle ResNet-50 et écoute les requêtes de prédiction sur le **Port 8001**.
 
 ```bash
-uvicorn mcp_server:mcp_app --port 8001 --reload
+# Assurez-vous d'être dans l'environnement virtuel et dans le répertoire du projet
+(venv) uvicorn mcp_server:mcp_app --port 8001 --reload
 ```
 
 Vous devriez voir le message : `MCP Server: Modèle spécialiste ResNet-50 chargé pour 200 classes.`
@@ -62,7 +63,8 @@ Vous devriez voir le message : `MCP Server: Modèle spécialiste ResNet-50 charg
 Le ChatBot UI (`chatbot_ui.py`) sert l'interface utilisateur et envoie les requêtes au serveur MCP sur le port 8001. Il écoute sur le **Port 8000**.
 
 ```bash
-uvicorn chatbot_ui:app --port 8000 --reload
+# Assurez-vous d'être dans l'environnement virtuel et dans le répertoire du projet
+(venv) uvicorn chatbot_ui:app --port 8000 --reload
 ```
 
 Vous devriez voir le message : `INFO: Uvicorn running on http://127.0.0.1:8000`
@@ -73,13 +75,15 @@ Vous devriez voir le message : `INFO: Uvicorn running on http://127.0.0.1:8000`
 
 1.  **Accédez** au ChatBot UI dans votre navigateur :
     $$\rightarrow \quad \text{[http://127.0.0.1:8000](http://127.0.0.1:8000)}$$
-2.  Lisez le message de bienvenue d'OrnithoBot.
-3.  **Soumettez** une image d'oiseau via l'interface d'upload.
+2.  Lisez le message de bienvenue de **BirdBot**.
+3.  **Soumettez** une image d'oiseau via l'interface d'upload. L'image apparaîtra dans la conversation.
 4.  Cliquez sur **"Identifier l'oiseau (Appel MCP)"**.
 
 ### Comportement du Système
 
-  * L'image soumise sera d'abord affichée dans la conversation.
-  * Une requête est envoyée au serveur MCP (port 8001).
-  * **Si la confiance est $\geq 50\%$ :** Le ChatBot renvoie l'espèce identifiée et le pourcentage de confiance.
-  * **Si la confiance est $< 50\%$ :** Le ChatBot renvoie le message de sécurité indiquant que l'image n'est probablement pas un oiseau, démontrant le fonctionnement de la logique métier intégrée au MCP.
+  * **Si la confiance est $\geq 50\%$ :** Le BirdBot renvoie l'espèce identifiée et le pourcentage de confiance.
+  * **Si la confiance est $< 50\%$ :** Le BirdBot renvoie le message de sécurité indiquant que l'image n'est probablement pas un oiseau.
+
+-----
+
+Veuillez mettre à jour votre fichier `chatbot_ui.py` et, si vous le souhaitez, votre `mcp_server.py` pour refléter le nom **BirdBot** dans les messages de log du terminal. Après cela, nous pourrons passer à d'autres améliorations ou à la documentation.
