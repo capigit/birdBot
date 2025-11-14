@@ -50,8 +50,7 @@ pip install torch torchvision numpy Pillow fastapi uvicorn python-multipart
 Le serveur MCP (`mcp_server.py`) charge le modèle ResNet-50 et écoute les requêtes de prédiction sur le **Port 8001**.
 
 ```bash
-# Assurez-vous d'être dans l'environnement virtuel et dans le répertoire du projet
-(venv) uvicorn mcp_server:mcp_app --port 8001 --reload
+uvicorn mcp_server:mcp_app --port 8001 --reload
 ```
 
 Vous devriez voir le message : `MCP Server: Modèle spécialiste ResNet-50 chargé pour 200 classes.`
@@ -63,8 +62,7 @@ Vous devriez voir le message : `MCP Server: Modèle spécialiste ResNet-50 charg
 Le ChatBot UI (`chatbot_ui.py`) sert l'interface utilisateur et envoie les requêtes au serveur MCP sur le port 8001. Il écoute sur le **Port 8000**.
 
 ```bash
-# Assurez-vous d'être dans l'environnement virtuel et dans le répertoire du projet
-(venv) uvicorn chatbot_ui:app --port 8000 --reload
+uvicorn chatbot_ui:app --port 8000 --reload
 ```
 
 Vous devriez voir le message : `INFO: Uvicorn running on http://127.0.0.1:8000`
