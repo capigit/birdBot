@@ -99,6 +99,10 @@ cd birdBot
 python -m venv .venv; .\.venv\Scripts\Activate.ps1
 ```
 
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
 3.  **Installer les dépendances :**
 
 <!-- end list -->
