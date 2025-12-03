@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BirdBot - ChatBot UI</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>BirdBot : Assistant Spécialisé</h1>
+    <div id="chatbox"></div>
+    
+    <div id="input-container">
+        <p class="welcome-message"><strong>BirdBot</strong> : Bonjour ! Je suis <strong>BirdBot</strong>. Posez-moi une question générale, ou utilisez mon modèle spécialiste pour identifier un oiseau !</p>
+
+        <form id="image-form" onsubmit="event.preventDefault(); handleImageUpload();">
+            <input type="file" id="image-file" accept="image/*" required>
+            <button type="submit">Classifier Image (MCP)</button>
+        </form>
+
+        <form id="text-form" onsubmit="event.preventDefault(); handleTextSubmit();">
+            <input type="text" id="text-input" placeholder="Posez une question à BirdBot..." required>
+            <button type="submit">Envoyer Question</button>
+        </form>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
